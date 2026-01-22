@@ -33,4 +33,4 @@ Thumbs.db
 *.sqlite
 
 # Ollama models (if downloaded locally)
-models/
+models/.env
