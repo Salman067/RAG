@@ -20,7 +20,7 @@ func NewLLMService(cfg *config.Config) *LLMService {
 }
 
 func (ls *LLMService) GenerateAnswer(query string, context string) (string, error) {
-	prompt := "Context:\n" + context + "\n\nQuestion: " + query + "\n\nAnswer ONLY this specific question based on the context. For multiple-choice questions, format your answer as: 'The correct answer [option]. [answer]'. For example: 'The correct answer B. Mobile'. Provide only this format, no additional text."
+	prompt := "You are an AI assistant answering questions based on a person's CV/resume. Use the provided context to give accurate, specific answers in a clear and well-formatted manner.\n\nContext:\n" + context + "\n\nQuestion: " + query + "\n\nAnswer the question directly and accurately based only on the context. Format the response exactly as:\n**Skills**\n- Category:\n  - Item\n  - Item\n- Another Category:\n  - Item\nDo not add any additional notes, comments, or information not present in the context."
 
 	reqBody := map[string]interface{}{
 		"model":  ls.model,

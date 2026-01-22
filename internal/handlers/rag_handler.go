@@ -95,7 +95,7 @@ func QueryHandler(c *gin.Context, llmSvc *services.LLMService, vectorSvc *servic
 	}
 
 	// Not in cache, proceed with retrieval and generation
-	docs, err := vectorSvc.Search(req.Query, 10)
+	docs, err := vectorSvc.Search(req.Query, 20) // Increased from 10 to 20 for better coverage
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -105,8 +105,8 @@ func QueryHandler(c *gin.Context, llmSvc *services.LLMService, vectorSvc *servic
 		contextDocs = append(contextDocs, doc.Content)
 	}
 	ctx := strings.Join(contextDocs, "\n")
-	if len(ctx) > 2000 {
-		ctx = ctx[:2000]
+	if len(ctx) > 4000 { // Increased from 2000 to 4000 for more context
+		ctx = ctx[:4000]
 	}
 	answer, err := llmSvc.GenerateAnswer(req.Query, ctx)
 	if err != nil {

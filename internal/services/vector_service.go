@@ -73,7 +73,7 @@ func (vs *VectorService) EmbedText(text string) ([]float32, error) {
 }
 
 func (vs *VectorService) StoreDocument(doc models.Document) error {
-	chunks := splitText(doc.Content, 500, 100) // chunk size 500, overlap 100
+	chunks := splitText(doc.Content, 300, 50) // Smaller chunks for better retrieval
 	var docChunks []Chunk
 	for _, chunkText := range chunks {
 		embedding, err := vs.EmbedText(chunkText)
